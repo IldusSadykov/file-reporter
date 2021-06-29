@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "minitest/spec"
-require_relative "user"
+require_relative "../app/services/file_reporter.rb"
 
 describe FileReporter do
   before do
@@ -32,7 +32,10 @@ session,2,3,Chrome 20,84,2016-11-25
   end
 
   describe "#execute" do
-    FileReporter.new.execute
-    assert_equal expected_result, File.read('result.json')
+    it "does execute with success expect result" do
+      FileReporter.new("data.txt").execute
+
+      assert_equal expected_result, File.read("result.json")
+    end
   end
 end
