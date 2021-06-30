@@ -7,40 +7,38 @@ class ReportGenerator
   def initialize(users, sessions)
     @users = users
     @sessions = sessions
-    @report = {}
+    @report = {
+      totalUsers: users.count,
+      uniqueBrowsersCount: uniq_browsers_count,
+      totalSessions: sessions.count,
+      allBrowsers: browsers_list
+    }
   end
 
   def execute
-    report[:totalUsers] = users.count
-    report[:uniqueBrowsersCount] = uniq_browsers_count
-    report[:totalSessions] = sessions.count
-    report[:allBrowsers] = all_browsers
-
-    puts "users #{users}"
     UserStatsGenerator.new(report, users, sessions).execute
 
-    puts report
     File.write("result.json", "#{report.to_json}\n")
   end
 
   private
 
   def uniq_browsers_count
-    uniqueBrowsers = []
+    unique_browsers = []
     sessions.each do |session|
-      browser = session[:browser]
-      next if uniqueBrowsers.include?(browser)
+      browser = session.browser
+      next if unique_browsers.include?(browser)
 
-      uniqueBrowsers.push(browser)
+      unique_browsers.push(browser)
     end
-    uniqueBrowsers.count
+    unique_browsers.count
   end
 
-  def all_browsers
+  def browsers_list
     sessions
-      .map{ |s| s[:browser].upcase }
+      .map { |s| s.browser.upcase }
       .sort
       .uniq
-      .join(',')
+      .join(",")
   end
 end
