@@ -1,4 +1,3 @@
-require "./app/models/user.rb"
 require "date"
 
 class UserStatsGenerator
@@ -13,26 +12,20 @@ class UserStatsGenerator
   end
 
   def execute
-    fill_stats
-    collect_user_stats
+    users.each do |user|
+      user.sessions = sessions.select{ |session| session.user_id == user.id }
+      user_key = [user.first_name, user.last_name].join(" ").to_sym
+      report[:usersStats][user_key] = build_stats(user)
+    end
   end
 
   private
 
-  def fill_stats
-    users.each do |user|
-      attributes = user
-      user_sessions = sessions.select { |session| session[:user_id] == user[:id] }
-      user_object = User.new(attributes, user_sessions)
-      stats.push(user_object)
-    end
-  end
-
   def build_stats(user)
     user_sessions = user.sessions
-    total_time = user_sessions.map{ |s| s[:time].to_i }
-    user_browsers = user_sessions.map{ |s| s[:browser].upcase }
-    session_dates = user_sessions.map{ |s| Date.parse(s[:date]) }
+    total_time = user_sessions.map{ |s| s.time.to_i }
+    user_browsers = user_sessions.map{ |s| s.browser.upcase }
+    session_dates = user_sessions.map{ |s| Date.parse(s.date) }
 
     {
       sessionsCount: user.sessions.count,
@@ -43,12 +36,5 @@ class UserStatsGenerator
       alwaysUsedChrome: user_browsers.all?(/CHROME/),
       dates: session_dates.sort.reverse.map { |d| d.iso8601 }
     }
-  end
-
-  def collect_user_stats
-    stats.each do |user|
-      user_key = "#{user.attributes[:first_name]}" + ' ' + "#{user.attributes[:last_name]}"
-      report[:usersStats][user_key.to_sym] = build_stats(user)
-    end
   end
 end

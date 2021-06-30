@@ -1,8 +1,2 @@
-class User
-  attr_reader :attributes, :sessions
-
-  def initialize(attributes, sessions)
-    @attributes = attributes
-    @sessions = sessions
-  end
+class User < Struct.new(:id, :first_name, :last_name, :age, :sessions)
 end
