@@ -1,4 +1,4 @@
-require 'rake/testtask'
+require "rake/testtask"
 
 Rake::TestTask.new do |t|
   t.libs.push "lib"

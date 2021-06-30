@@ -1,18 +1,3 @@
-# Отчёт в json
-#   - Сколько всего юзеров +
-#   - Сколько всего уникальных браузеров +
-#   - Сколько всего сессий +
-#   - Перечислить уникальные браузеры в алфавитном порядке через запятую и капсом +
-#
-#   - По каждому пользователю
-#     - сколько всего сессий +
-#     - сколько всего времени +
-#     - самая длинная сессия +
-#     - браузеры через запятую +
-#     - Хоть раз использовал IE? +
-#     - Всегда использовал только Хром? +
-#     - даты сессий в порядке убывания через запятую +
-
 require "./app/models/user.rb"
 require "./app/models/session.rb"
 require "./app/services/report_generator.rb"
@@ -20,8 +5,8 @@ require "./app/services/report_generator.rb"
 class FileReporter
   attr_reader :file_name
 
-  USER_STR = "user"
-  SESSION_STR = "session"
+  USER_STR = "user".freeze
+  SESSION_STR = "session".freeze
 
   def initialize(file_name)
     @file_name = file_name
@@ -43,7 +28,7 @@ class FileReporter
     sessions = []
 
     File.foreach(file_name) do |line|
-      cols = line.split(',')
+      cols = line.split(",")
       if cols[0] == USER_STR
         cols.shift
         user = User.new(*cols)

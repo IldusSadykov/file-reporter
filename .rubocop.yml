@@ -1,0 +1,77 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  DisplayCopNames: true
+  Exclude:
+    - bin/**/*
+    - tmp/**/*
+
+# Style
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
+
+Style/AndOr:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
+
+Style/CollectionMethods:
+  Enabled: true
+
+Style/SymbolArray:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+  SupportedStyles:
+    - compact
+    - expanded
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/StringMethods:
+  Enabled: true
+
+Style/NestedTernaryOperator:
+  Enabled: false
+
+Style/StructInheritance:
+  Enabled: false
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: false
+
+# Layout
+
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+  SupportedStyles:
+    - with_first_parameter
+    - with_fixed_indentation
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+  SupportedStylesAlignWith:
+    - keyword
+    - variable
+
+Layout/LineLength:
+  Max: 120
+
+# Metrics
+
+Metrics/MethodLength:
+  Max: 16
+
+Metrics/BlockLength:
+  Enabled: false
