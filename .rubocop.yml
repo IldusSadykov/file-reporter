@@ -71,7 +71,7 @@ Layout/LineLength:
 # Metrics
 
 Metrics/MethodLength:
-  Max: 16
+  Max: 22
 
 Metrics/BlockLength:
   Enabled: false

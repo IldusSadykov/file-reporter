@@ -4,6 +4,8 @@ require "./app/services/user_stats_generator.rb"
 class ReportGenerator
   attr_reader :users, :sessions, :report
 
+  REPORT_FILE_PATH = "result.json".freeze
+
   def initialize(users, sessions)
     @users = users
     @sessions = sessions
@@ -18,18 +20,18 @@ class ReportGenerator
   def execute
     UserStatsGenerator.new(report, users, sessions).execute
 
-    File.write("result.json", "#{report.to_json}\n")
+    File.write(REPORT_FILE_PATH, "#{report.to_json}\n")
   end
 
   private
 
   def uniq_browsers_count
     unique_browsers = []
-    sessions.each do |session|
+    Parallel.each(sessions, in_threads: 8) do |session|
       browser = session.browser
       next if unique_browsers.include?(browser)
 
-      unique_browsers.push(browser)
+      unique_browsers << browser
     end
     unique_browsers.count
   end
