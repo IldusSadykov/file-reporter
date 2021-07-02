@@ -1,15 +1,18 @@
+require "parallel"
 require "./app/models/user.rb"
 require "./app/models/session.rb"
 require "./app/services/report_generator.rb"
+require "concurrent"
 
 class FileReporter
-  attr_reader :file_name
+  attr_accessor :file_name, :users, :sessions
 
   USER_STR = "user".freeze
-  SESSION_STR = "session".freeze
 
   def initialize(file_name)
     @file_name = file_name
+    @users = Concurrent::Array.new
+    @sessions = Concurrent::Array.new
   end
 
   def execute
@@ -24,21 +27,12 @@ class FileReporter
   # if we need process very files the best way will to use database (fill databse from file and then use queries to db)
 
   def fetch_from_file
-    users = []
-    sessions = []
-
-    File.foreach(file_name) do |line|
+    Parallel.each(File.foreach(file_name), in_threads: 8) do |line|
       cols = line.split(",")
-      if cols[0] == USER_STR
-        cols.shift
-        user = User.new(*cols)
-        users.push(user)
-      end
-      if cols[0] == SESSION_STR
-        cols.shift
-        session = Session.new(*cols)
-        sessions.push(session)
-      end
+      first_col = cols[0]
+      cols.shift
+
+      first_col == USER_STR ? users << User.new(*cols) : sessions << Session.new(*cols)
     end
 
     [users, sessions]
