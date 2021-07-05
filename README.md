@@ -14,16 +14,17 @@ File reporter is the app for processing and report results from log file.
 
   ```bash
   bin/setup
+  FILES_DIR=files REPORTS_DIR=reports bin/prepare_files
   ```
 
 3. Run test and quality suits to make sure all dependencies are satisfied and applications works correctly before making changes.
 
   ```bash
-  bin/test
+  STAGE=test REPORT_FILE_PATH=final_report_test.json bundle exec rake test
   ```
 
 4. Run app
 
   ```bash
-  bin/reporter
+  STAGE=development REPORT_FILE_PATH=final_report.json bundle exec bin/reporter
   ```

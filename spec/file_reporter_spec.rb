@@ -11,11 +11,10 @@ describe FileReporter do
   let(:expected_user_stats) do
     expected_result[:usersStats]
   end
-  let(:data_file_path) { "spec/fixtures/txt/data.txt" }
-  let(:result) { JSON.parse(File.read("result.json"), symbolize_names: true) }
+  let(:result) { JSON.parse(File.read("final_report_test.json"), symbolize_names: true) }
 
   before do
-      FileReporter.new(data_file_path).execute
+      FileReporter.new.execute
   end
 
   describe "#execute" do
@@ -27,6 +26,8 @@ describe FileReporter do
 
     it "does execute with success expect usersStats field" do
       expected_user_stats.keys.each do |key|
+        expected_user_stats[key][:dates].sort!
+
         assert_equal expected_user_stats[key], result[:usersStats][key]
       end
     end

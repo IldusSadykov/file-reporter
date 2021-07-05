@@ -2,5 +2,4 @@
 
 require "./app/services/file_reporter.rb"
 
-file = ARGV[0] || "data.txt"
-FileReporter.new(file).execute
+FileReporter.new.execute

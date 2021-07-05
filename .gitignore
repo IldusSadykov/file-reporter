@@ -1,1 +1,7 @@
 .bundle/
+files/
+reports/
+test_files/
+test_reports/
+*.json
+*.txt
