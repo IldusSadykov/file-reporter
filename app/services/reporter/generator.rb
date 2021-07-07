@@ -13,6 +13,6 @@ class ReportGenerator
   def execute
     report = UserStatsGenerator.new(users, sessions).execute
 
-    File.write("#{ENV["STAGE"]}_reports/#{file_name}.json", "#{report.to_json}\n")
+    File.write("#{ENV['STAGE']}_reports/#{file_name}.json", "#{report.to_json}\n")
   end
 end

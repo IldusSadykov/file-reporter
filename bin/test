@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 
 bin/rubocop --display-style-guide
+bin/prepare_files
 bundle exec rake test

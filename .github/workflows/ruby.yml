@@ -33,3 +33,11 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
       run: bin/test
+      env:
+        STAGE: test
+        LINES_COUNT: 3
+        FILES_DIR: test_files
+        REPORTS_DIR: test_reports
+        REPORT_FILE_PATH: final_report_test.json
+        FILE_PATH: spec/fixtures/txt/data.txt
+        FILE_PREFIX: data

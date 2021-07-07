@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require "./app/services/file_reporter.rb"
+require "./app/services/reporter/runner.rb"
 
-FileReporter.new.execute
+ReporterRunner.new.execute

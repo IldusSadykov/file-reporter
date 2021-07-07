@@ -14,7 +14,8 @@ File reporter is the app for processing and report results from log file.
 
   ```bash
   bin/setup
-  FILES_DIR=files REPORTS_DIR=reports bin/prepare_files
+  FILES_DIR=development_files REPORTS_DIR=development_reports bin/prepare_files
+  FILES_DIR=test_files REPORTS_DIR=test_reports bin/prepare_files
   ```
 
 3. Run test and quality suits to make sure all dependencies are satisfied and applications works correctly before making changes.

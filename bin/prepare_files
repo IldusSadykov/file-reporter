@@ -2,7 +2,7 @@
 
 rm -rf $FILES_DIR
 rm -rf $REPORTS_DIR
-mkdir $FILES_DIR
-mkdir $REPORTS_DIR
-mkdir $REPORTS_DIR/$FILES_DIR
-split -l 10000 -d data_large.txt files/data.txt.
+mkdir -p $FILES_DIR
+mkdir -p $REPORTS_DIR
+mkdir -p $REPORTS_DIR/$FILES_DIR
+split -l $LINES_COUNT $FILE_PATH $FILES_DIR/$FILE_PREFIX.

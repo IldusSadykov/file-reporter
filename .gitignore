@@ -1,6 +1,8 @@
 .bundle/
 files/
 reports/
+development_files/
+development_reports/
 test_files/
 test_reports/
 *.json
