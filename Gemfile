@@ -7,7 +7,7 @@ gem "parallel"
 gem "rake"
 
 group :development, :test do
-  gem "pry"
   gem "minitest"
+  gem "pry"
   gem "rubocop", require: false
 end

@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+rm -rf $FILES_DIR
+rm -rf $REPORTS_DIR
+mkdir -p $FILES_DIR
+mkdir -p $REPORTS_DIR
+mkdir -p $REPORTS_DIR/$FILES_DIR
+split -l $LINES_COUNT $FILE_PATH $FILES_DIR/$FILE_PREFIX.
